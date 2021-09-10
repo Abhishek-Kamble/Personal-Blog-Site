@@ -1,0 +1,10 @@
+<%- include("partials/header"); -%>
+    <h1>Home</h1>
+    <p> <%= homeStartingContent %> </p>
+    <%= postArr %>
+    <% for(let i=0; i<postArr.length; i++){ %>
+        <h2><% postArr.postTitle %></h2>
+        <p><% postArr.postBody %></p>
+    <% } %>
+
+<%- include("partials/footer"); -%>
