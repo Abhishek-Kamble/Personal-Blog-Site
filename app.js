@@ -1,6 +1,8 @@
+//jshint esversion:6
 const express = require("express");
 const bodyParser = require("body-parser");
 const ejs = require("ejs");
+const _ = require("lodash");
 
 let postArr = [];
 
@@ -48,6 +50,21 @@ app.post('/compose', function(req, res) {
 
     postArr.push(post);
     res.redirect("/");
+});
+
+app.get("/posts/:postName", function(req, res) {
+    const requestedTitle = _.lowerCase(req.params.postName);
+
+    for (let i = 0; i < postArr.length; i++) {
+        const storedTitle = _.lowerCase(postArr[i].title);
+        if (storedTitle === requestedTitle) {
+            res.render("post", {
+                postTitle: postArr[i].title,
+                postBody: postArr[i].content
+            });
+        }
+    }
+
 });
 
 app.listen(3000, function() {
